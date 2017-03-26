@@ -1,4 +1,4 @@
-FROM php:7-cli
+FROM php:7.0-cli
 MAINTAINER XiaodongHuang <ddonng@qq.com>
 
 RUN apt-get update && apt-get install -y git zlib1g-dev && docker-php-ext-install pdo_mysql && docker-php-ext-install sockets
