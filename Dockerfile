@@ -29,7 +29,7 @@ RUN apt-get install -y \
 RUN pecl install swoole-1.8.12 && echo extension=swoole.so >> /usr/local/etc/php/conf.d/swoole.ini
 RUN echo date.timezone = PRC >> /usr/local/etc/php/php.ini
 
-RUN apt-get remove -y build-essential libmemcached-dev libz-dev \
+RUN apt-get remove -y build-essential libmemcached-dev libz-dev git\
     && apt-get autoremove -y && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 WORKDIR /home/www/
