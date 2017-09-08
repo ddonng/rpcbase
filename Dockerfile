@@ -13,7 +13,13 @@ RUN pecl install -o -f redis-3.0.0 \
 
 RUN apt-get install -y pkg-config libssl-dev && pecl install mongodb-1.1.8 && echo "extension=mongodb.so" >> /usr/local/etc/php/conf.d/mongodb.ini
 
-RUN apt-get install -y libpcre3-dev openssl libssl-dev && git clone --depth=1 http://github.com/phalcon/cphalcon &&cd cphalcon/build && ./install \
+# swoole extension
+RUN pecl install swoole-1.9.19 && echo extension=swoole.so >> /usr/local/etc/php/conf.d/swoole.ini
+
+# phalcon extension
+RUN apt-get install -y libpcre3-dev openssl libssl-dev
+RUN git clone -b 3.1.x --depth=1 http://github.com/phalcon/cphalcon
+RUN cd cphalcon/build && ./install \
     && echo extension=phalcon.so >> /usr/local/etc/php/conf.d/phalcon.ini
 RUN rm -rf cphalcon
 
@@ -26,7 +32,8 @@ RUN apt-get install -y \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd
 
-RUN pecl install swoole-1.8.12 && echo extension=swoole.so >> /usr/local/etc/php/conf.d/swoole.ini
+RUN echo "Asia/Shanghai" > /etc/timezone
+RUN dpkg-reconfigure -f noninteractive tzdata
 RUN echo date.timezone = PRC >> /usr/local/etc/php/php.ini
 
 RUN apt-get remove -y build-essential libmemcached-dev libz-dev git\
