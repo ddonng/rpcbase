@@ -11,7 +11,7 @@ RUN pecl install -o -f redis-3.0.0 \
     && rm -rf /tmp/pear \
     && echo "extension=redis.so" >> /usr/local/etc/php/conf.d/redis.ini
 
-RUN apt-get install -y pkg-config libssl-dev && pecl install mongodb-1.1.8 && echo "extension=mongodb.so" >> /usr/local/etc/php/conf.d/mongodb.ini
+RUN apt-get install -y pkg-config libssl-dev && pecl install mongodb-1.5.3 && echo "extension=mongodb.so" >> /usr/local/etc/php/conf.d/mongodb.ini
 
 # swoole extension
 RUN pecl install swoole-1.9.19 && echo extension=swoole.so >> /usr/local/etc/php/conf.d/swoole.ini
@@ -27,7 +27,7 @@ RUN apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libmcrypt-dev \
-        libpng12-dev \
+        libpng-dev \
     && docker-php-ext-install -j$(nproc) iconv mcrypt \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd
